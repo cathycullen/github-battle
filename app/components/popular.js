@@ -1,4 +1,30 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
+// extract render() nav to it's own functional component
+
+function LanguagesNav({selected, onUpdateLanguage}) {
+  const languages = ['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python']
+  return (
+    <ul className='flex-center'>
+      {languages.map((language) => (
+        <li key={language}>
+        <button
+          className='btn-clear nav-link'
+          style={language === selected ? {color: 'red'} : null }
+          onClick={() => onUpdateLanguage(language)} >
+          {language}
+        </button>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+LanguagesNav.propTypes = {
+  selected: PropTypes.string.isRequired,
+  onUpdateLanguage: PropTypes.func.isRequired
+}
 
 export default class Popular extends React.Component {
   constructor(props) {
@@ -19,23 +45,17 @@ export default class Popular extends React.Component {
     )
   }
   render() {
+    // const selected = this.state.selectedLanguage
+    // let's use destructuring instead
+    const {selectedLanguage} = this.state
     const languages = ['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python']
     return (
-      <ul className='flex-center'>
-        {languages.map((language) => (
-          <li key={language}>
-          <button
-            className='btn-clear nav-link'
-            style={language === this.state.selectedLanguage ? {color: 'red'} : null }
-            // need to pass function definition not function invocation
-            // so this.updateLanguage(language)  needs to be: () => this.updateLanguage(language)
-            // whenever the button is clickec on go ahead and invoke the function we gave you
-            onClick={() => this.updateLanguage(language)} >
-            {language}
-          </button>
-          </li>
-        ))}
-      </ul>
+      <React.Fragment>
+        <LanguagesNav
+          selected = {selectedLanguage}
+          onUpdateLanguage = {this.updateLanguage}
+        />
+      </React.Fragment>
     )
   }
 }
