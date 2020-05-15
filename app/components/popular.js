@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { fetchPopularRepos } from '../utils/api'
 
 // extract render() nav to it's own functional component
 
@@ -31,30 +32,59 @@ export default class Popular extends React.Component {
     super(props)
 
     this.state = {
-      selectedLanguage: 'All'
+      selectedLanguage: 'All',
+      repos: null,
+      error: null,
     }
     this.updateLanguage = this.updateLanguage.bind(this)
   }
 
-  updateLanguage(language) {
-    console.log(language)
+  componentDidMount() {
+    this.updateLanguage(this.state.selectedLanguage)
+  }
+
+  updateLanguage(selectedLanguage) {
+    console.log(selectedLanguage)
     this.setState(
       {
-        selectedLanguage: language
+        selectedLanguage: selectedLanguage,
+        error: null,
+        repos: null
       }
     )
+
+    fetchPopularRepos(selectedLanguage)
+      .then( (repos) => this.setState({
+        repos,
+        error: null
+      }))
+      .catch(() => {
+        console.log(`Catch: `, this)
+        setState({error: `There was an error fetching repositories`})
+      })
+  }
+  isLoading() {
+    return this.state.repos === null && this.state.error === null
   }
   render() {
     // const selected = this.state.selectedLanguage
     // let's use destructuring instead
-    const {selectedLanguage} = this.state
+    const {selectedLanguage, repos, error} = this.state
     const languages = ['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python']
+    console.log('repos: ', this.state.repos)
+    // because repos is an object, we can't just put on the screen
     return (
       <React.Fragment>
         <LanguagesNav
           selected = {selectedLanguage}
           onUpdateLanguage = {this.updateLanguage}
         />
+      {this.isLoading() && <p>LOADING</p>}
+
+      {error && <p>ERROR</p>}
+
+
+      {repos && <pre>{JSON.stringify(repos, null, 2)}</pre>}
       </React.Fragment>
     )
   }
