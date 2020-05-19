@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDom from 'react-dom'
 import './index.css'
 import Popular from './components/Popular'
+import Battle from './components/Battle'
 
 // need to install the following:
 // npm install --save-dev @babel/core @babel/preset-env @babel/preset-react webpack webpack-cli webpack-dev-server babel-loader css-loader style-loader html-webpack-plugin
@@ -18,7 +19,7 @@ class App extends React.Component {
     console.log(this.props)
     return (
       <div className = 'container'>
-        <Popular />
+        <Battle />
       </div>
     )
   }
