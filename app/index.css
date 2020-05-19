@@ -40,10 +40,6 @@ li {
   color: inherit;
 }
 
-.solid {
-  border-style: solid;
-}
-
 .grid {
   display: flex;
   flex-wrap: wrap;
