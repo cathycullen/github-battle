@@ -85,13 +85,61 @@ PlayerInput.propTypes = {
   label: PropTypes.string.isRequired
 }
 
-export default class Battle extends React.Component {
+function PlayerPreview({username, onReset, label}) {
+  return (
+    <div className = 'column player'>
+    {username}
+    </div>
+  )
+}
 
+PlayerPreview.propTypes = {
+  username: PropTypes.string.isRequired,
+  onReset: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+
+}
+export default class Battle extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      playerOne: null,
+      playerTwo: null
+    }
+
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+  handleSubmit(id, player) {
+    console.log(`handleSubmit called id: `, id )
+    console.log(`handleSubmit called player: `, player )
+    this.setState({
+      [id]: player
+    })
+    console.log(this.state)
+  }
   render() {
+    const { playerOne, playerTwo} = this.state
     return (
       <React.Fragment>
         <Instructions />
 
+        <div className = 'players-container'>
+          <h1 className = 'center-text header-lg'>Players</h1>
+          <div className = 'row space-around'>
+            {playerOne === null && (
+              <PlayerInput
+                label = 'Player One'
+                onSubmit = { (player) => this.handleSubmit('playerOne', player)}
+              />
+            )}
+            {playerTwo === null && (
+              <PlayerInput
+                label = 'Player Two'
+                onSubmit = { (player) => this.handleSubmit('playerTwo', player)}
+              />
+            )}
+          </div>
+        </div>
       </React.Fragment>
     )
   }
