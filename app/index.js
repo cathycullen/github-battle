@@ -16,7 +16,6 @@ import Battle from './components/Battle'
 // define  a conponent
 class App extends React.Component {
   render() {
-    console.log(this.props)
     return (
       <div className = 'container'>
         <Battle />

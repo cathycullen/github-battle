@@ -4,7 +4,7 @@ const params = `?client_id=${id}&client_secret=${sec}`
 
 function getErrorMsg(message, username) {
   if(message === 'Not Found') {
-    return `${usename} doesn't exist.`
+    return `${username} doesn't exist.`
   }
 
   return message
@@ -57,14 +57,6 @@ function sortPlayers(players) {
 }
 // next we need to export a function so that we can consume the above functions
 export function battle (players) {
-
-    Promise.all([
-      getUserData(players[0],
-      getUserData(players[1]))
-    ]).then((results) => {
-      console.log('results0: ' + results[0]+'results1: '+ results[1] );
-    });
-
   return Promise.all([
     getUserData(players[0]),
     getUserData(players[1])
