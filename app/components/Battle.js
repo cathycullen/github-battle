@@ -130,16 +130,12 @@ export default class Battle extends React.Component {
     this.handleReset = this.handleReset.bind(this)
   }
   handleSubmit(id, player) {
-    console.log(`handleSubmit called id: `, id )
-    console.log(`handleSubmit called player: `, player )
     this.setState({
       [id]: player
     })
-    console.log(this.state)
   }
 
   handleReset(id) {
-    console.log("handleReset")
 
     this.setState({
       [id]: null

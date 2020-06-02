@@ -96,7 +96,6 @@ export default class Popular extends React.Component {
   }
 
   updateLanguage(selectedLanguage) {
-    console.log(selectedLanguage)
     this.setState(
       {
         selectedLanguage: selectedLanguage,
@@ -116,7 +115,6 @@ export default class Popular extends React.Component {
           }))
         })
         .catch(() => {
-          console.log(`Catch: `, this)
           setState({error: `There was an error fetching repositories`})
         })
 
@@ -127,7 +125,6 @@ export default class Popular extends React.Component {
       //     error: null
       //   }))
         .catch(() => {
-          console.log(`Catch: `, this)
           setState({error: `There was an error fetching repositories`})
         })
     }
@@ -141,7 +138,6 @@ export default class Popular extends React.Component {
     // let's use destructuring instead
     const {selectedLanguage, repos, error} = this.state
     const languages = ['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python']
-    console.log('repos: ', this.state.repos)
     // because repos is an object, we can't just put on the screen
     return (
       <React.Fragment>
