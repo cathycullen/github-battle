@@ -128,6 +128,15 @@ export default class Battle extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleReset = this.handleReset.bind(this)
+    this.onReset = this.onReset.bind(this)
+  }
+
+  onReset() {
+    this.setState({
+      playerOne: null,
+      playerTwo: null,
+      battle: false
+    })
   }
   handleSubmit(id, player) {
     this.setState({
@@ -136,7 +145,6 @@ export default class Battle extends React.Component {
   }
 
   handleReset(id) {
-
     this.setState({
       [id]: null
     })
@@ -146,7 +154,11 @@ export default class Battle extends React.Component {
     const { playerOne, playerTwo, battle} = this.state
 
     if (battle === true) {
-      return <Results playerOne={playerOne} playerTwo={playerTwo} />
+      return <Results
+        playerOne={playerOne}
+        playerTwo={playerTwo}
+        onReset = {this.onReset}/>
+        // could have also used onreset={() => this.setState({})}
     }
     return (
       <React.Fragment>
