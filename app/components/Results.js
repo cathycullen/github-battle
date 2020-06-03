@@ -4,6 +4,7 @@ import { FaCompass, FaBriefcase, FaUsers, FaUserFriends, FaCode, FaUser } from '
 import Card from './Card'
 import PropTypes from 'prop-types'
 
+
 function ProfileList ({ profile }) {
   return (
     <ul className='card-list'>
