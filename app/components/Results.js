@@ -109,6 +109,7 @@ export default class Results extends React.Component {
           onClick={this.props.onReset } >
           Reset
         </button>
+        
       </React.Fragment>
     )
   }
